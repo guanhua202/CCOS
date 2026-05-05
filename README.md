@@ -1,4 +1,4 @@
-# Release Notes (EN 🇺🇸)
+# Caesar Cipher On Steroids (Release Notes EN 🇺🇸)
 
 ### Program Logic
 
@@ -8,7 +8,7 @@
   - ✅ Exit program safely
 ------------------------------------------------------------
 
-# Примечания к выпуску (RU 🇷🇺)
+# Шифр Цезаря На Стероидах (Примечания к выпуску RU 🇷🇺)
 
 ### Логика программы
 
