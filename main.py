@@ -1,53 +1,45 @@
-# ——————————————————— 🔐 Caesar Cipher on steroids
-# ✅ Скрестить два кода для расширения функционала до расшифрования
-# ✅ Шифровать цифры в сообщении
-# o Посмотреть почему цифры в сообщении не расшифровываются
+# Шифр Цезаря на стероидах
+# Логика работы: Каждое слово строки шифруется с помощью шифра Цезаря
+# (циклического сдвига на длину этого слова)
 
-import string
+# The_Caesar-Cipher_On-Steroids_CCOS
+# Logic of operation: Each word of the string is encrypted using a Caesar cipher
+# (cyclic shift by the length of this word)
 
-msg = input("Message: ").split()
-mode = input("Encode/Decode (1, 2): ")
+word_en = str(input())
+word_en = word_en.split()
+mirror_list = []
 
-en_up = [letter for letter in string.ascii_uppercase]
-en_lower = [letter for letter in string.ascii_lowercase]
+en_alpha_up = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L','M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L','M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+en_alpha_lower = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
-digits = [digit for digit in string.digits]
+for i in range(0, len(word_en)):
+	# Счётчик букв в слове
+  # Letter counter in a word
+	count = 0
 
-def find_next_letter(letter, len_word, letters, mode):
-	if mode == '1':
-		index = letters.index(letter) + len_word
-		
-		if index >= len(letters):
-			while index >= len(letters):
-				index -= len(letters)
-			return letters[index]
-		else:
-			return letters[index]
-		
-	elif mode == '2':
-		return letters[letters.index(letter) - len_word]
+	# Создаём массив для обработки слова и добавляем туда слово
+  # Create an array to process the word and add the word there
+	mirror_list = []
+	mirror_list.extend(word_en[i])
 
-for i in range(0, len(msg)):
-	
-	len_word = 0
+	# Обрабатываем слово (считаем буквы в массиве mirror_list)
+  # Processing the word (counting letters in the mirror_list array)
+	for letter in mirror_list:
+		if letter.isalpha():
+			count += 1
 
-	new_msg = []
-	new_msg.extend(msg[i])
+	for j in range(0, len(mirror_list)):
+		if mirror_list[j].isupper():
+			index = en_alpha_up.index(mirror_list[j])
+			mirror_list[j] = en_alpha_up[index + count]
+		elif mirror_list[j].islower():
+			index = en_alpha_lower.index(mirror_list[j])
+			mirror_list[j] = en_alpha_lower[index + count]
 
-	for letter in new_msg:
-		if letter.isalnum():
-			len_word += 1
+	''.join(mirror_list)
+	# После добавляем в оригинальный массив
+      # Then we add it to the original array
+	word_en[i] = ''.join(mirror_list)
 
-	for j in range(0, len(new_msg)):
-		if new_msg[j].isupper():
-			new_msg[j] = find_next_letter(new_msg[j], len_word, en_up, mode)
-			
-		elif new_msg[j].islower():
-			new_msg[j] = find_next_letter(new_msg[j], len_word, en_lower, mode)
-			
-		elif new_msg[j].isdigit():
-			new_msg[j] = find_next_letter(new_msg[j], len_word, digits, mode)
-
-	msg[i] = ''.join(new_msg)
-
-print(*msg)
+print(*word_en)
